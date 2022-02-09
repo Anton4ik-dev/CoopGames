@@ -10,6 +10,7 @@ public class TimersCodes : MonoBehaviour
     [SerializeField] private float timeForProbes;
     [SerializeField] private float timeForZealot;
     [SerializeField] private float timeForZergs;
+    [Space]
     [SerializeField] private int howMuchZealotEat;
     [SerializeField] private int probesCnt;
     [SerializeField] private int mineralsPerCicle;
@@ -17,6 +18,11 @@ public class TimersCodes : MonoBehaviour
     [SerializeField] private int costOfZealot;
     [SerializeField] private int howManyZergsWillCome;
     [SerializeField] private int howZergsWillBeIncreased;
+    [SerializeField] private int howManyProbesForWin;
+    [SerializeField] private int howManyMineralsForWin;
+    [Space]
+    [SerializeField] private GameObject winScreen;
+    [SerializeField] private GameObject losScreen;
 
     public Image mineralTimer;
     public Text mineralText;
@@ -27,6 +33,13 @@ public class TimersCodes : MonoBehaviour
     public Text zealotText;
     public Image zergsTimer;
     public Text zergsText;
+    [Space]
+    public Text zealotStatTxtLos;
+    public Text probeStatTxtLos;
+    public Text wavesStatTxtLos;
+    public Text zealotStatTxtWin;
+    public Text probeStatTxtWin;
+    public Text wavesStatTxtWin;
 
     private float currentTimerForMinerals;
     private float currentTimerForFeeding;
@@ -36,6 +49,9 @@ public class TimersCodes : MonoBehaviour
     private int cntZealots;
     private float currentTimerForZergs;
     private int cntZergs;
+    private int zealotStat;
+    private int probeStat;
+    private int waveStat;
     void Start()
     {
         Time.timeScale = 0f;
@@ -99,6 +115,7 @@ public class TimersCodes : MonoBehaviour
             {
                 probeTimer.fillAmount = 0;
                 probesCnt += 1;
+                probeStat++;
                 currentTimerForProbes = timeForProbes;
                 probeText.text = $"{probesCnt}";
                 probeTimer.gameObject.SetActive(false);
@@ -112,6 +129,7 @@ public class TimersCodes : MonoBehaviour
             if (zealotTimer.fillAmount == 1)
             {
                 zealotTimer.fillAmount = 0;
+                zealotStat++;
                 cntZealots += 1;
                 currentTimerForZealots = timeForZealot;
                 zealotText.text = $"{cntZealots}";
@@ -138,15 +156,28 @@ public class TimersCodes : MonoBehaviour
                 {
                     probesCnt = 0;
                     Time.timeScale = 0;
-                    Debug.Log("Ты умер долбаёб");
+                    losScreen.SetActive(true);
+                    zealotStatTxtLos.text = $"You created {zealotStat} zealots";
+                    probeStatTxtLos.text = $"You created {probeStat} probes";
+                    wavesStatTxtLos.text = $"You survived {waveStat} waves";
                     break;
                 }
             }
+            waveStat++;
             zealotText.text = $"{cntZealots}";
             probeText.text = $"{probesCnt}";
             cntZergs += howZergsWillBeIncreased;
             currentTimerForZergs = timeForZergs;
             zergsText.text = $"{cntZergs}";
+        }
+
+        if(howManyMineralsForWin <= cntMinerals && howManyProbesForWin <= probesCnt)
+        {
+            Time.timeScale = 0;
+            winScreen.SetActive(true);
+            zealotStatTxtWin.text = $"You created {zealotStat} zealots";
+            probeStatTxtWin.text = $"You created {probeStat} probes";
+            wavesStatTxtWin.text = $"You survived {waveStat} waves";
         }
     }
 
