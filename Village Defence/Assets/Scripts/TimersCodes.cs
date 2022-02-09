@@ -38,6 +38,7 @@ public class TimersCodes : MonoBehaviour
     private int cntZergs;
     void Start()
     {
+        Time.timeScale = 0f;
         currentTimerForMinerals = timeForMinerals;
         currentTimerForProbes = timeForProbes;
         currentTimerForZealots = timeForZealot;
