@@ -205,7 +205,7 @@ public class TimersCodes : MonoBehaviour
             cntMinerals -= costOfProbe;
             mineralText.text = $"{cntMinerals}";
         }
-        else
+        else if (probeTimer.IsActive() != true)
             notEnoughMinerals.Play();
     }
     public void GetZealot()
@@ -217,7 +217,7 @@ public class TimersCodes : MonoBehaviour
             cntMinerals -= costOfZealot;
             mineralText.text = $"{cntMinerals}";
         }
-        else
+        else if(zealotTimer.IsActive() != true)
             notEnoughMinerals.Play();
     }
 
