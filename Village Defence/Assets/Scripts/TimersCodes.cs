@@ -20,6 +20,8 @@ public class TimersCodes : MonoBehaviour
     [SerializeField] private int howZergsWillBeIncreased;
     [SerializeField] private int howManyProbesForWin;
     [SerializeField] private int howManyMineralsForWin;
+    [SerializeField] private int howManyMineralsForGradeTime;
+    [SerializeField] private int howManyMineralsForGradeDmg;
     [Space]
     [SerializeField] private GameObject winScreen;
     [SerializeField] private GameObject losScreen;
@@ -33,6 +35,8 @@ public class TimersCodes : MonoBehaviour
     public Text zealotText;
     public Image zergsTimer;
     public Text zergsText;
+    public GameObject grade1icon;
+    public GameObject grade2icon;
     [Space]
     public Text zealotStatTxtLos;
     public Text probeStatTxtLos;
@@ -52,6 +56,8 @@ public class TimersCodes : MonoBehaviour
     private int zealotStat;
     private int probeStat;
     private int waveStat;
+    private float timeScaler = 1;
+    private bool dmgIncreased = false;
     void Start()
     {
         Time.timeScale = 0f;
@@ -124,7 +130,7 @@ public class TimersCodes : MonoBehaviour
         // таймер найма зилотов
         if (zealotTimer.IsActive())
         {
-            currentTimerForZealots -= Time.deltaTime;
+            currentTimerForZealots -= Time.deltaTime * timeScaler;
             zealotTimer.fillAmount = 1 - (currentTimerForZealots / timeForZealot);
             if (zealotTimer.fillAmount == 1)
             {
@@ -147,6 +153,10 @@ public class TimersCodes : MonoBehaviour
                 if (cntZealots > 0)
                 {
                     cntZealots -= 1;
+                    if(dmgIncreased == true)
+                    {
+                        i--;
+                    }
                 }
                 else if (cntZealots == 0 && probesCnt > 0)
                 {
@@ -197,6 +207,28 @@ public class TimersCodes : MonoBehaviour
             zealotTimer.gameObject.SetActive(true);
             cntMinerals -= costOfZealot;
             mineralText.text = $"{cntMinerals}";
+            Debug.Log("Блять");
+        }
+    }
+
+    public void GetGrade1()
+    {
+        if(cntMinerals >= howManyMineralsForGradeTime)
+        {
+            grade1icon.gameObject.SetActive(false);
+            cntMinerals -= howManyMineralsForGradeTime;
+            mineralText.text = $"{cntMinerals}";
+            timeScaler = 4;
+        }
+    }
+    public void GetGrade2()
+    {
+        if (cntMinerals >= howManyMineralsForGradeDmg)
+        {
+            grade2icon.gameObject.SetActive(false);
+            cntMinerals -= howManyMineralsForGradeDmg;
+            mineralText.text = $"{cntMinerals}";
+            dmgIncreased = true;
         }
     }
 }
