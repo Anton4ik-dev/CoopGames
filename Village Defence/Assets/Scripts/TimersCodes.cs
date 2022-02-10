@@ -44,6 +44,11 @@ public class TimersCodes : MonoBehaviour
     public Text zealotStatTxtWin;
     public Text probeStatTxtWin;
     public Text wavesStatTxtWin;
+    [Space]
+    public AudioSource zealot;
+    public AudioSource grade;
+    public AudioSource notEnoughMinerals;
+    public AudioSource probe;
 
     private float currentTimerForMinerals;
     private float currentTimerForFeeding;
@@ -196,19 +201,24 @@ public class TimersCodes : MonoBehaviour
         if(costOfProbe <= cntMinerals && probeTimer.IsActive() == false)
         {
             probeTimer.gameObject.SetActive(true);
+            probe.Play();
             cntMinerals -= costOfProbe;
             mineralText.text = $"{cntMinerals}";
         }
+        else
+            notEnoughMinerals.Play();
     }
     public void GetZealot()
     {
         if (costOfZealot <= cntMinerals && zealotTimer.IsActive() == false)
         {
             zealotTimer.gameObject.SetActive(true);
+            zealot.Play();
             cntMinerals -= costOfZealot;
             mineralText.text = $"{cntMinerals}";
-            Debug.Log("Блять");
         }
+        else
+            notEnoughMinerals.Play();
     }
 
     public void GetGrade1()
@@ -216,19 +226,25 @@ public class TimersCodes : MonoBehaviour
         if(cntMinerals >= howManyMineralsForGradeTime)
         {
             grade1icon.gameObject.SetActive(false);
+            grade.Play();
             cntMinerals -= howManyMineralsForGradeTime;
             mineralText.text = $"{cntMinerals}";
             timeScaler = 4;
         }
+        else
+            notEnoughMinerals.Play();
     }
     public void GetGrade2()
     {
         if (cntMinerals >= howManyMineralsForGradeDmg)
         {
             grade2icon.gameObject.SetActive(false);
+            grade.Play();
             cntMinerals -= howManyMineralsForGradeDmg;
             mineralText.text = $"{cntMinerals}";
             dmgIncreased = true;
         }
+        else
+            notEnoughMinerals.Play();
     }
 }
