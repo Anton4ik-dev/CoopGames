@@ -5963,12 +5963,12 @@ MonoBehaviour:
   mineralsPerCicle: 2
   costOfProbe: 4
   costOfZealot: 6
-  howManyZergsWillCome: 2
+  howManyZergsWillCome: 4
   howZergsWillBeIncreased: 2
-  howManyProbesForWin: 5
-  howManyMineralsForWin: 50
+  howManyProbesForWin: 40
+  howManyMineralsForWin: 200
   howManyMineralsForGradeTime: 40
-  howManyMineralsForGradeDmg: 50
+  howManyMineralsForGradeDmg: 90
   winScreen: {fileID: 1806281826}
   losScreen: {fileID: 1639334250}
   mineralTimer: {fileID: 1616591904}

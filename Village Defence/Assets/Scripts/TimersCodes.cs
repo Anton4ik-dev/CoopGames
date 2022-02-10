@@ -229,7 +229,7 @@ public class TimersCodes : MonoBehaviour
             grade.Play();
             cntMinerals -= howManyMineralsForGradeTime;
             mineralText.text = $"{cntMinerals}";
-            timeScaler = 4;
+            timeScaler = 2;
         }
         else
             notEnoughMinerals.Play();
