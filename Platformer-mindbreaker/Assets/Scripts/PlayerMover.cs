@@ -9,11 +9,11 @@ public class PlayerMover : MonoBehaviour
 
     public float Speed, JumpForce;
     public LayerMask groundLayer;
-    public GameObject scoreTXT;
-    public GameObject scoreTXTwin;
-    public GameObject pause;
-    public GameObject winPanel;
-    public GameObject playingUI;
+    //public GameObject scoreTXT;
+    //public GameObject scoreTXTwin;
+    //public GameObject pause;
+    //public GameObject winPanel;
+    //public GameObject playingUI;
 
     private SpriteRenderer sprite;
     private bool grounded;
@@ -70,12 +70,12 @@ public class PlayerMover : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
-        if (other.CompareTag("Exit"))
+        /*if (other.CompareTag("Exit"))
         {
             pause.SetActive(false);
             winPanel.SetActive(true);
             playingUI.SetActive(false);
             Time.timeScale = 0f;
-        }
+        }*/
     }
 }
