@@ -5,17 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class LevelFunctions : MonoBehaviour
 {
-    public void level1()
+    public void restart()
     {
         SceneManager.LoadScene(1);
     }
-    public void menu()
+    public void Menu()
     {
         SceneManager.LoadScene(0);
-    }
-    public void restart()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void Resume()
     {
