@@ -40,8 +40,8 @@ public class PlayerMover : MonoBehaviour
         Vector2 newVelo = transform.right * moveX * Speed;
         newVelo.y = rb.velocity.y;
         rb.velocity = newVelo;
-        RaycastHit2D grounded = Physics2D.Raycast(groundChecker.position, Vector2.down, 0.1f);
-        anim.SetBool("Grounded", grounded);
+        grounded = Physics2D.OverlapCircle(groundChecker.position, 0.05f, groundLayer);
+        //anim.SetBool("Grounded", grounded);
 
         if (Input.GetButtonDown("Jump") && grounded)
         {
@@ -57,8 +57,8 @@ public class PlayerMover : MonoBehaviour
             sprite.flipX = true;
         }
 
-        anim.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
-        anim.SetFloat("VSpeed", rb.velocity.y);
+       // anim.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
+        //anim.SetFloat("VSpeed", rb.velocity.y);
         
     }
 
