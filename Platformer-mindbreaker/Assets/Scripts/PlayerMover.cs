@@ -41,7 +41,7 @@ public class PlayerMover : MonoBehaviour
         newVelo.y = rb.velocity.y;
         rb.velocity = newVelo;
         grounded = Physics2D.OverlapCircle(groundChecker.position, 0.05f, groundLayer);
-        //anim.SetBool("Grounded", grounded);
+        anim.SetBool("Grounded", grounded);
 
         if (Input.GetButtonDown("Jump") && grounded)
         {
@@ -57,8 +57,8 @@ public class PlayerMover : MonoBehaviour
             sprite.flipX = true;
         }
 
-       // anim.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
-        //anim.SetFloat("VSpeed", rb.velocity.y);
+        anim.SetFloat("Speed", Mathf.Abs(rb.velocity.x));
+        anim.SetFloat("VSpeed", rb.velocity.y);
         
     }
 
