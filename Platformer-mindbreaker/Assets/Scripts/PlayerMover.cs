@@ -9,21 +9,24 @@ public class PlayerMover : MonoBehaviour
 
     public float Speed, JumpForce;
     public LayerMask groundLayer;
+    [SerializeField] private GameObject trap;
     //public GameObject scoreTXT;
     //public GameObject scoreTXTwin;
     //public GameObject pause;
     //public GameObject winPanel;
     //public GameObject playingUI;
 
+
     private SpriteRenderer sprite;
     private bool grounded;
     private Rigidbody2D rb;
     private Transform groundChecker;
     private Animator anim;
+    private bool _playerGotKey;
 
-    
 
-    
+
+
 
     void Start()
     {
@@ -62,20 +65,44 @@ public class PlayerMover : MonoBehaviour
         
     }
 
-
-    
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (other.CompareTag("Death"))
+        if (collision.gameObject.tag == "Death")
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Lever") && Input.GetKeyDown(KeyCode.E))
+        {
+            trap.SetActive(false);
+            Debug.Log("Working");
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Key"))
+        {
+            Destroy(other.gameObject);
+            _playerGotKey = true;
+        }
+        if (other.CompareTag("Cage") && _playerGotKey == true)
+        {
+            Destroy(other.gameObject);
+            _playerGotKey = false;
+        }
+        
         /*if (other.CompareTag("Exit"))
         {
             pause.SetActive(false);
             winPanel.SetActive(true);
             playingUI.SetActive(false);
             Time.timeScale = 0f;
-        }*/
+        }
+        
+        */
     }
 }
