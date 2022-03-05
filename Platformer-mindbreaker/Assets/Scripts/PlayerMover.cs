@@ -10,6 +10,7 @@ public class PlayerMover : MonoBehaviour
     public float Speed, JumpForce;
     public LayerMask groundLayer;
     [SerializeField] private GameObject trap;
+    [SerializeField] private GameObject boat;
     //public GameObject scoreTXT;
     //public GameObject scoreTXTwin;
     //public GameObject pause;
@@ -23,6 +24,7 @@ public class PlayerMover : MonoBehaviour
     private Transform groundChecker;
     private Animator anim;
     private bool _playerGotKey;
+    private bool cageDestoyed = false;
 
 
 
@@ -67,17 +69,25 @@ public class PlayerMover : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Death")
+        
+
+        if (collision.gameObject.tag == "Boat")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            collision.rigidbody.bodyType = RigidbodyType2D.Dynamic;
         }
+
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Lever") && Input.GetKeyDown(KeyCode.E))
+        if (collision.CompareTag("Lever") && Input.GetKeyDown(KeyCode.E) && cageDestoyed == true)
         {
             trap.SetActive(false);
+            Debug.Log("Working");
+        }
+        if (collision.CompareTag("LeverBoat") && Input.GetKeyDown(KeyCode.E))
+        {
+            boat.SetActive(true);
             Debug.Log("Working");
         }
     }
@@ -92,9 +102,15 @@ public class PlayerMover : MonoBehaviour
         if (other.CompareTag("Cage") && _playerGotKey == true)
         {
             Destroy(other.gameObject);
+            cageDestoyed = true;
             _playerGotKey = false;
         }
-        
+
+        if (other.gameObject.tag == "Death")
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
         /*if (other.CompareTag("Exit"))
         {
             pause.SetActive(false);
