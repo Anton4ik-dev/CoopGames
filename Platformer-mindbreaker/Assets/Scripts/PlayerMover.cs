@@ -11,11 +11,9 @@ public class PlayerMover : MonoBehaviour
     public LayerMask groundLayer;
     [SerializeField] private GameObject trap;
     [SerializeField] private GameObject boat;
-    //public GameObject scoreTXT;
-    //public GameObject scoreTXTwin;
-    //public GameObject pause;
-    //public GameObject winPanel;
-    //public GameObject playingUI;
+    [SerializeField] private GameObject pause;
+    [SerializeField] private GameObject winPanel;
+    [SerializeField] private GameObject losePanel;
 
 
     private SpriteRenderer sprite;
@@ -36,6 +34,7 @@ public class PlayerMover : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
         anim = transform.GetChild(0).GetComponent<Animator>();
+        Time.timeScale = 1f;
     }
 
     void Update()
@@ -108,17 +107,18 @@ public class PlayerMover : MonoBehaviour
 
         if (other.gameObject.tag == "Death")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            pause.SetActive(false);
+            losePanel.SetActive(true);
+            Time.timeScale = 0f;
         }
 
-        /*if (other.CompareTag("Exit"))
+        if (other.CompareTag("Finish"))
         {
             pause.SetActive(false);
             winPanel.SetActive(true);
-            playingUI.SetActive(false);
             Time.timeScale = 0f;
         }
         
-        */
+        
     }
 }

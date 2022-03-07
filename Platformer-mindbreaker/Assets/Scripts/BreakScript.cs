@@ -6,7 +6,7 @@ public class BreakScript : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Weight")
+        if(collision.gameObject.tag == "Boat")
         {
             Destroy(gameObject);
             Destroy(collision.gameObject);

@@ -5,6 +5,7 @@ using UnityEngine;
 public class VaseScript : MonoBehaviour
 {
     private bool isFalling = false;
+    private bool alreadyTriggered = false;
     private Rigidbody2D rb;
     private Animator anim;
     [SerializeField] private GameObject keys;
@@ -25,8 +26,9 @@ public class VaseScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground") && isFalling == true)
+        if (other.gameObject.CompareTag("Ground") && isFalling == true && alreadyTriggered == false)
         {
+            alreadyTriggered = true;
             Instantiate(keys, spawnPoint.position, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
             anim.SetBool("Dead", true);
             Destroy(gameObject, 0.65f);
