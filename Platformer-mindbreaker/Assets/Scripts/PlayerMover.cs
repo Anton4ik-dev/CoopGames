@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerMover : MonoBehaviour
 {
 
+    public AudioSource LeverSound;
     public float Speed, JumpForce;
     public LayerMask groundLayer;
     [SerializeField] private GameObject trap;
@@ -81,13 +82,17 @@ public class PlayerMover : MonoBehaviour
     {
         if (collision.CompareTag("Lever") && Input.GetKeyDown(KeyCode.E) && cageDestoyed == true)
         {
+            
             trap.SetActive(false);
             Debug.Log("Working");
+            LeverSound.Play();
+
         }
         if (collision.CompareTag("LeverBoat") && Input.GetKeyDown(KeyCode.E))
         {
             boat.SetActive(true);
             Debug.Log("Working");
+            LeverSound.Play();
         }
     }
 

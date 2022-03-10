@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class VaseScript : MonoBehaviour
 {
+    public AudioSource CrashVaseSound;
+
     private bool isFalling = false;
     private bool alreadyTriggered = false;
     private Rigidbody2D rb;
@@ -32,6 +34,7 @@ public class VaseScript : MonoBehaviour
             Instantiate(keys, spawnPoint.position, Quaternion.Euler(new Vector3(0f, 0f, 0f)));
             anim.SetBool("Dead", true);
             Destroy(gameObject, 0.65f);
+            CrashVaseSound.Play();
         }
     }
 }

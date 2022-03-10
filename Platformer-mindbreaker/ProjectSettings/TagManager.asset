@@ -12,6 +12,8 @@ TagManager:
   - Weight
   - LeverBoat
   - Boat
+  - LeverSound
+  - CrashVaseSound
   layers:
   - Default
   - TransparentFX
