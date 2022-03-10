@@ -11,7 +11,7 @@ public class BreakScript : MonoBehaviour
         if(collision.gameObject.tag == "Boat")
         {
             DoorCrashSound.Play();
-            
+            gameObject.SetActive(false);
             Destroy(collision.gameObject);
 
             Destroy(gameObject,1);
